@@ -8,7 +8,7 @@ function WorkoutDetails({ workout }) {
       </p>
       <p>
         <strong>Reps:</strong>
-        {workout.load}
+        {workout.reps}
       </p>
       <p>{workout.createdAt}</p>
     </div>
