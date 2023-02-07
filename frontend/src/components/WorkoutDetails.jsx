@@ -1,14 +1,24 @@
 import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
 
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 function WorkoutDetails({ workout }) {
   const { dispatch } = useWorkoutsContext();
+  const { user } = useAuthContext();
 
   const handleDelete = async () => {
+    if (!user) {
+      setError('You must be logged in');
+
+      return;
+    }
     const response = await fetch(
       'http://localhost:4000/api/workouts/' + workout._id,
       {
+        headers: {
+          Authorization: `Bearer ${user.token}`
+        },
         method: 'DELETE'
       }
     );
